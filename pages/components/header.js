@@ -30,13 +30,13 @@ export default class Header extends Component{
                         </div>
                         <div className="d-flex align-items-center">
                             <div className="d-inline-flex align-items-center p-3">
-                                <Link href="home"><a>Home</a></Link>
+                                <Link as="/" href="home" prefetch><a>Home</a></Link>
                             </div>
                             <div className="d-inline-flex align-items-center p-3">
-                                <Link href="trucks"><a>Trucks</a></Link>
+                                <Link href="trucks" prefetch><a>Trucks</a></Link>
                             </div>
                             <div className="d-inline-flex align-items-center p-3">
-                                <Link href="trips"><a>Trips</a></Link>
+                                <Link href="trips" prefetch><a>Trips</a></Link>
                             </div>
                         </div>
                     </div>

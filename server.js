@@ -47,6 +47,18 @@ app.prepare()
 
   server.get('/trucks', (req, res) => {
     return app.render(req,res,'/trucks');
+  });
+
+  server.get('/trucks/:id', (req, res) => {
+    const actualPage = '/truck'
+    const queryParams = { id: req.params.id } 
+    app.render(req, res, actualPage, queryParams)
+  });
+
+  server.get('/trucks/:id/edit', (req, res) => {
+    const actualPage = '/edit'
+    const queryParams = { id: req.params.id,type:"edit" } 
+    app.render(req, res, actualPage, queryParams)
   })
 
   server.get('*', (req, res) => {

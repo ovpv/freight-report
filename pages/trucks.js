@@ -3,6 +3,7 @@ import Page from './layouts/page';
 import axios from 'axios';
 import config from '../config';
 import Router from 'next/router';
+import Link from 'next/link';
 
 export default class Trucks extends Component{
     constructor(){
@@ -20,14 +21,6 @@ export default class Trucks extends Component{
             this.setState({trucks:data.data.data.trucks});
         }).catch(err => console.error(err));
     }
-    onEditClick(e){
-        const id = e.currentTarget.getAttribute("data-id");;
-        console.log(id);
-        Router.push({
-          pathname: '/edit',
-          query: { type:'edit',id }
-        })
-    }
     onDeleteClick(e){
         console.log(e);
     }
@@ -41,7 +34,8 @@ export default class Trucks extends Component{
                         <td>{truck.license}</td>
                         <td>{truck.model}</td>
                         <td>
-                            <span onClick={this.onEditClick} data-id={truck.id} className="d-inline-flex justify-content-center align-items-center pl-3"><i className="far fa-edit"></i> Edit</span>
+                            <Link as={`/trucks/${truck.id}`} href={`/truck?id=${truck.id}`}><a className="d-inline-flex justify-content-center align-items-center pl-3"><i className="fas fa-eye"></i> View</a></Link>
+                            <Link as={`/trucks/${truck.id}/edit`} href={`/edit?type=edit&id=${truck.id}`}><a className="d-inline-flex justify-content-center align-items-center pl-3"><i className="far fa-edit"></i> Edit</a></Link>
                             <span onClick={this.onDeleteClick} data-id={truck.id} className="d-inline-flex justify-content-center align-items-center pl-3"><i className="far fa-trash-alt"></i> Delete</span>
                         </td>
                     </tr>
