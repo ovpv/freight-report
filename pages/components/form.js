@@ -1,10 +1,10 @@
 import {Component} from 'react';
 
-export default class TruckForm extends Component{
+export default class Form extends Component{
     render(){
         var formsubmit = [];
-        if(this.props.type == "edit"){
-            formsubmit.push(<button key="edit" className="btn btn-primary">Update Truck Details</button>);
+        if(this.props.page == "edit"){
+            formsubmit.push(<button key="edit" className="btn btn-primary">Update Details</button>);
         }else{
             formsubmit.push(<button key="new" className="btn btn-primary">Add new Truck</button>);
         }

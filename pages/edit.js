@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import Page from '../pages/layouts/page';
-import TruckForm from './components/truck-form';
+import Form from './components/form';
 
 export default class Edit extends Component{
     componentWillMount(){
@@ -10,7 +10,7 @@ export default class Edit extends Component{
         return(
             <Page>
                 <div className="container">
-                        <TruckForm type={this.props.url.query.type}/>
+                        <Form type={this.props.url.query.type}/>
                 </div>
             </Page>            
         )

@@ -57,9 +57,9 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   });
 
-  server.get('/trucks/:id/edit', (req, res) => {
+  server.get('edit/trucks/:id', (req, res) => {
     const actualPage = '/edit'
-    const queryParams = { id: req.params.id,type:"edit" } 
+    const queryParams = { id: req.params.id,type:"truck",page:'edit' } 
     app.render(req, res, actualPage, queryParams)
   })
 
