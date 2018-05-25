@@ -39,6 +39,48 @@ export default class Truck extends Component{
                             </div>
                         </div>
                     </section>
+                    <section className="tr-sec misc p-4 mt-4">
+                        <h3 className="mb-3">Recent Trip details</h3>
+                        <div className="earning d-flex flex-column justify-content-center mb-3 mt-5">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#id</th>
+                                        <th scope="col">from</th>
+                                        <th scope="col">to</th>
+                                        <th scope="col">Amount rcvd</th>
+                                        <th scope="col">Expenses</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1231123</td>
+                                        <td>Mumbai</td>
+                                        <td>Baroda</td>
+                                        <td>12312</td>
+                                        <td>3434</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1231123</td>
+                                        <td>Mumbai</td>
+                                        <td>Baroda</td>
+                                        <td>12312</td>
+                                        <td>3434</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1231123</td>
+                                        <td>Mumbai</td>
+                                        <td>Baroda</td>
+                                        <td>12312</td>
+                                        <td>3434</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="d-flex justify-content-center align-items-center">
+                            <button className="btn btn-info">View all</button>
+                        </div>
+                    </section>
                     <section className="tr-sec extended p-4 mt-4">
                         <h3 className="mb-3">Extended Details</h3>
                         <div className="mt-5">
@@ -97,7 +139,7 @@ export default class Truck extends Component{
                     </section>
                     <section className="tr-sec misc p-4 mt-4">
                         <h3 className="mb-3">Miscellaneous Details</h3>
-                        <div className="earning d-flex flex-column justify-content-center mb-3">
+                        <div className="earning d-flex flex-column justify-content-center mb-3 mt-5">
                             <h5>Insurance</h5>
                             <table class="table">
                                 <thead>
