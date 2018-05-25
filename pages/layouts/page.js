@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Header from '../components/header';
+import {NextScript} from 'next/document';
 
 export default class Page extends Component{
     render(){

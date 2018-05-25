@@ -1,1 +1,12 @@
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+@import './base/_variables';
+@import './base/_mixins';
+@import './base/_global';
+
+//components
+@import './components/_header';
+@import './components/_form';
+
+//pages
+@import './pages/_truck';
