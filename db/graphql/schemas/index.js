@@ -5,6 +5,24 @@ var schema = buildSchema(`
     monthly: Int
     total: Int
   }
+  type TripExpense {
+    petrol:Int
+    repairs:Int
+    driver:Int
+    toll:Int,
+    total:Int
+  }
+  type Trips{
+    id: Int
+    truck:Int
+    from:String
+    to:String
+    freight_amount:Int
+    line_adv: Int
+    gross_earning: Int
+    net_earning: Int
+    expense: TripExpense
+  }
   type Expense {
     monthly: Int
     total: Int
@@ -20,6 +38,7 @@ var schema = buildSchema(`
   }
   type Query {
     trucks:[Trucks]
+    trips:[Trips]
   }
 `);
 

@@ -46,13 +46,6 @@ export default class Trucks extends Component{
         }
         return(
             <Page>
-                <style jsx>
-                    {`
-                        .fr-table{
-                            background-color:#F2FDFF;
-                        }
-                    `}
-                </style>
                 <section className="container mt-4">
                     <div className="fr-table p-4">
                         <table className="table">

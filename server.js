@@ -3,8 +3,9 @@ const next = require('next')
 const mongoose = require('mongoose');
 var graphqlHTTP = require('express-graphql');
 const cors = require('cors');
-const trucksGQLSchema = require('./db/graphql/schemas/trucks');
+const GQLSchema = require('./db/graphql/schemas');
 const truckModel = require('./db/mongoose/models/trucks');
+const tripsModel = require('./db/mongoose/models/trips');
 
 const PORT = process.env.PORT || 3000;
 
@@ -18,7 +19,7 @@ const db = mongoose.connection;
   var GqlData ={
     trucks:[],
     trips:[],
-};
+  };
 
 
 db.on('error',(err)=>{
@@ -26,8 +27,14 @@ db.on('error',(err)=>{
 });
 db.once('open',()=>{
     console.log("we are connected!!");
+
+    //getting trucks data
     truckModel.find({}).exec(function(err,data){
         GqlData.trucks = data;
+    });
+
+    tripsModel.find({}).exec(function(err,data){
+      GqlData.trips = data;
     })
 })
 
@@ -38,7 +45,7 @@ app.prepare()
   server.use(cors());  
 
   server.use('/api', graphqlHTTP({
-    schema: trucksGQLSchema,
+    schema: GQLSchema,
     rootValue:GqlData,
     graphiql: true,
   }));
