@@ -37,8 +37,8 @@ var schema = buildSchema(`
     expense: Expense
   }
   type Query {
-    trucks:[Trucks]
-    trips:[Trips]
+    trucks(id:Int):[Trucks]
+    trips(id:Int):[Trips]
   }
 `);
 

@@ -1,13 +1,47 @@
 import {Component} from 'react';
 import Page from './layouts/page';
 import {PieChart,Pie,Cell,Tooltip,Legend} from 'recharts';
+import axios from 'axios';
+import Link from 'next/link';
 
 const data = [{name: 'Profit', value: 3000}, {name: 'Expense', value: 2000}];
 
 const colors = ['#0088FE', '#00C49F'];
  
 export default class Trip extends Component{
+    constructor(){
+        super();
+        this.state={
+            trip:{},
+            expense:{},
+            truck:{}
+        }
+    }
+    getTripDetails(){
+        const tripId = this.props.url.query.id;
+        console.log(tripId);
+        const tripJSON = axios(`/api?query={trips(id:${tripId}){id,truck,from,to,line_adv,freight_amount,gross_earning,net_earning,expense{toll,driver,repairs,petrol,total}}}`);
+        return tripJSON;
+    }
+    getTruckDetails(){
+        if(this.state.trip){
+            const truckId = this.state.trip.truck;
+            const truckJSON = axios(`/api?query={trucks(id:${truckId}){id,model,license}}`);
+            return truckJSON;
+        }
+    }
+    componentWillMount(){
+        this.getTripDetails().then((data)=>{
+            this.setState({trip:data.data.data.trips[0]});
+            this.setState({expense:data.data.data.trips[0].expense});
+            this.getTruckDetails().then((data)=>{
+                this.setState({truck:data.data.data.trucks[0]});
+            }).catch(err => console.error(err));
+        }).catch(err => console.error(err));
+
+    }
     render(){
+        console.log(this.state.expense);
         return(
             <Page>
                 <div className="container">
@@ -17,15 +51,15 @@ export default class Trip extends Component{
                             <div className="left d-flex flex-column justify-content-center col-md-4 col-12">
                                 <div className="field id">
                                     <p className="label m-0">#ID</p>
-                                    <p className="value m-0">21</p>
+                                    <p className="value m-0">{this.state.trip.id}</p>
                                 </div>
                                 <div className="field license">
-                                    <p className="label m-0">License</p>
-                                    <p className="value m-0">MH04-YT-1234</p>
+                                    <p className="label m-0">From</p>
+                                    <p className="value m-0">{this.state.trip.from}</p>
                                 </div>
                                 <div className="field model">
-                                    <p className="label m-0">Model</p>
-                                    <p className="value m-0">Mahindra container</p>
+                                    <p className="label m-0">To</p>
+                                    <p className="value m-0">{this.state.trip.to}</p>
                                 </div>
                             </div>
                             <div className="right d-flex col-md-8 col-12">
@@ -40,97 +74,50 @@ export default class Trip extends Component{
                         </div>
                     </section>
                     <section className="tr-sec misc p-4 mt-4">
-                        <h3 className="mb-3">Recent Trip details</h3>
+                        <h3 className="mb-3">Financial details</h3>
                         <div className="earning d-flex flex-column justify-content-center mb-3 mt-5">
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#id</th>
-                                        <th scope="col">from</th>
-                                        <th scope="col">to</th>
-                                        <th scope="col">Amount rcvd</th>
-                                        <th scope="col">Expenses</th>
+                                        <th scope="col">Freight Amount</th>
+                                        <th scope="col">Line Advance</th>
+                                        <th scope="col">Gross Earning</th>
+                                        <th scope="col">Net Earning</th>
+                                        <th scope="col">Expense</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1231123</td>
-                                        <td>Mumbai</td>
-                                        <td>Baroda</td>
-                                        <td>12312</td>
-                                        <td>3434</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1231123</td>
-                                        <td>Mumbai</td>
-                                        <td>Baroda</td>
-                                        <td>12312</td>
-                                        <td>3434</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1231123</td>
-                                        <td>Mumbai</td>
-                                        <td>Baroda</td>
-                                        <td>12312</td>
-                                        <td>3434</td>
+                                        <td>{this.state.trip.freight_amount}</td>
+                                        <td>{this.state.trip.line_adv}</td>
+                                        <td>{this.state.trip.gross_earning}</td>
+                                        <td>{this.state.trip.net_earning}</td>
+                                        <td>{this.state.expense.total}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div className="d-flex justify-content-center align-items-center">
-                            <button className="btn btn-info">View all</button>
-                        </div>
                     </section>
                     <section className="tr-sec extended p-4 mt-4">
-                        <h3 className="mb-3">Extended Details</h3>
+                        <h3 className="mb-3">Expense Details</h3>
                         <div className="mt-5">
                             <div className="earning d-flex flex-column justify-content-center mb-3">
                                 <h5>Earning</h5>
-                                <table class="table">
+                                <table className="table">
                                     <thead>
                                         <tr>
-                                        <th scope="col">This month</th>
-                                        <th scope="col">Total</th>
+                                        <th scope="col">Toll</th>
+                                        <th scope="col">Petrol/diesel</th>
+                                        <th scope="col">Driver</th>
+                                        <th scope="col">Repairs</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>$213213</td>
-                                            <td>$213213000</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="earning d-flex flex-column justify-content-center mb-3">
-                                <h5>Profits</h5>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">This month</th>
-                                        <th scope="col">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>$213213</td>
-                                            <td>$213213000</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="earning d-flex flex-column justify-content-center mb-3">
-                                <h5>Expenses</h5>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">This month</th>
-                                        <th scope="col">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>$213213</td>
-                                            <td>$213213000</td>
+                                            <td>{this.state.expense.toll}</td>
+                                            <td>{this.state.expense.petrol}</td>
+                                            <td>{this.state.expense.driver}</td>
+                                            <td>{this.state.expense.repairs}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -140,24 +127,20 @@ export default class Trip extends Component{
                     <section className="tr-sec misc p-4 mt-4">
                         <h3 className="mb-3">Miscellaneous Details</h3>
                         <div className="earning d-flex flex-column justify-content-center mb-3 mt-5">
-                            <h5>Insurance</h5>
-                            <table class="table">
+                            <h5>Truck</h5>
+                            <table className="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">#id</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Monthly EMI</th>
-                                        <th scope="col">Next EMI date</th>
-                                        <th scope="col"># of years</th>
+                                        <th scope="col">Model</th>
+                                        <th scope="col">License</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1231123</td>
-                                        <td>Adithy birla Insurance</td>
-                                        <td>3456</td>
-                                        <td>12th April 2019</td>
-                                        <td>5</td>
+                                        <td><Link href={`/trucks/${this.state.trip.truck}`}><a>{this.state.truck.id}</a></Link></td>
+                                        <td>{this.state.truck.model}</td>
+                                        <td>{this.state.truck.license}</td>
                                     </tr>
                                 </tbody>
                             </table>
