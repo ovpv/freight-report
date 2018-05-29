@@ -58,16 +58,32 @@ app.prepare()
     return app.render(req,res,'/trucks');
   });
 
+  server.get('/trips', (req, res) => {
+    return app.render(req,res,'/trips');
+  });
+
+  server.get('/trips/:id', (req, res) => {
+    const actualPage = '/trip'
+    const queryParams = { id: req.params.id } 
+    return app.render(req, res, actualPage, queryParams)
+  });
+
   server.get('/trucks/:id', (req, res) => {
     const actualPage = '/truck'
     const queryParams = { id: req.params.id } 
-    app.render(req, res, actualPage, queryParams)
+    return app.render(req, res, actualPage, queryParams)
   });
 
   server.get('edit/trucks/:id', (req, res) => {
     const actualPage = '/edit'
     const queryParams = { id: req.params.id,type:"truck",page:'edit' } 
-    app.render(req, res, actualPage, queryParams)
+    return app.render(req, res, actualPage, queryParams)
+  })
+
+  server.get('edit/trips/:id', (req, res) => {
+    const actualPage = '/edit'
+    const queryParams = { id: req.params.id,type:"trip",page:'edit' } 
+    return app.render(req, res, actualPage, queryParams)
   })
 
   server.get('*', (req, res) => {
