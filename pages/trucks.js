@@ -35,7 +35,7 @@ export default class Trucks extends Component{
                         <td>{truck.model}</td>
                         <td>
                             <Link as={`/trucks/${truck.id}`} href={`/truck?id=${truck.id}`}><a className="d-inline-flex justify-content-center align-items-center pl-3"><i className="fas fa-eye"></i> View</a></Link>
-                            <Link as={`edit/trucks/${truck.id}`} href={`/edit?type=truck&id=${truck.id}&page=edit`}><a className="d-inline-flex justify-content-center align-items-center pl-3"><i className="far fa-edit"></i> Edit</a></Link>
+                            <Link as={`edit/trucks/${truck.id}`} href={`/edit?type=edit&id=${truck.id}&page=truck`}><a className="d-inline-flex justify-content-center align-items-center pl-3"><i className="far fa-edit"></i> Edit</a></Link>
                             <span onClick={this.onDeleteClick} data-id={truck.id} className="d-inline-flex justify-content-center align-items-center pl-3"><i className="far fa-trash-alt"></i> Delete</span>
                         </td>
                     </tr>

@@ -3,7 +3,7 @@ import {Component} from 'react';
 export default class Form extends Component{
     render(){
         var formsubmit = [];
-        if(this.props.page == "edit"){
+        if(this.props.type == "edit"){
             formsubmit.push(<button key="edit" className="btn btn-primary">Update Details</button>);
         }else{
             formsubmit.push(<button key="new" className="btn btn-primary">Add new Truck</button>);

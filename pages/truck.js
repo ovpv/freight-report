@@ -7,6 +7,12 @@ const data = [{name: 'Profit', value: 3000}, {name: 'Expense', value: 2000}];
 const colors = ['#0088FE', '#00C49F'];
 
 export default class Truck extends Component{
+    constructor(){
+        super();
+    }
+    componentWillMount(){
+        console.log(this.props);
+    }
     render(){
         return(
             <Page>
@@ -42,7 +48,7 @@ export default class Truck extends Component{
                     <section className="tr-sec misc p-4 mt-4">
                         <h3 className="mb-3">Recent Trip details</h3>
                         <div className="earning d-flex flex-column justify-content-center mb-3 mt-5">
-                            <table class="table">
+                            <table className="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">#id</th>

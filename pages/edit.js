@@ -10,7 +10,7 @@ export default class Edit extends Component{
         return(
             <Page>
                 <div className="container">
-                        <Form type={this.props.url.query.type}/>
+                        <Form type={this.props.url.query.type} page={this.props.url.query.page}/>
                 </div>
             </Page>            
         )
