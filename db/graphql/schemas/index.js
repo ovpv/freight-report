@@ -1,4 +1,4 @@
-var { buildSchema } = require('graphql');
+var { buildSchema } = require("graphql");
 
 var schema = buildSchema(`
   type Earning {
@@ -37,8 +37,10 @@ var schema = buildSchema(`
     expense: Expense
   }
   type Query {
-    trucks(id:Int):[Trucks]
-    trips(id:Int):[Trips]
+    trucks:[Trucks]
+    trips:[Trips],
+    truck(id:Int): Trucks,
+    trip(id:Int): Trips
   }
 `);
 
